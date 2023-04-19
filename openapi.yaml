@@ -1,0 +1,144 @@
+openapi: 3.0.0
+servers:
+  - url: "http://localhost:1323"
+info:
+  description: Stamp API
+  version: 1.0.0
+  title: Stamp API
+tags:
+  - name: stamp
+    description: "Stamp API"
+paths:
+  /post:
+    post:
+      tags:
+        - post
+      summary: create a new post
+      description: create a new post
+      requestBody:
+        description: Create a new post
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/schemas/PostPostRequest"
+      responses:
+        "201":
+          description: post created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "400":
+          description: Invalid Input
+      security:
+        - api_key: []
+
+  /posts:
+    get:
+      tags:
+        - post
+      summary: get a list of most recent posts
+      parameters:
+        - name: size
+          in: query
+          required: false
+          description: Number of results are included in a page
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - name: page
+          in: query
+          required: false
+          description: Page number
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        "200":
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostResultSet"
+      security:
+        - api_key: []
+
+externalDocs:
+  description: Find out more about Open API specification
+  url: "https://swagger.io/specification/"
+
+components:
+  schemas:
+    PostPostRequest:
+      type: object
+      required:
+        - title
+        - subtitle
+        - description
+        - link
+      properties:
+        title:
+          type: string
+        subtitle:
+          type: string
+        description:
+          type: string
+        link:
+          typs: string
+    Post:
+      type: object
+      required:
+        - id
+        - title
+        - subtitle
+        - description
+        - link
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        subtitle:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+    PostResultSet:
+      type: object
+      required:
+        - count
+        - posts
+        - page
+        - pageSize
+        - totalPages
+      properties:
+        count:
+          type: integer
+          format: int32
+          x-faker:
+            datatype.number:
+              min: 1
+              max: 100
+        posts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Post"
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
