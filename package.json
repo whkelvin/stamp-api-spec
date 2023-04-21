@@ -1,0 +1,14 @@
+{
+  "name": "stamp-api-spec",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx spectral lint ./openapi.yaml"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@stoplight/spectral-cli": "^6.6.0"
+  }
+}

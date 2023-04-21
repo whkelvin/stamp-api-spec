@@ -5,12 +5,15 @@ info:
   description: Stamp API
   version: 1.0.0
   title: Stamp API
+  contact: 
+      name: whkelvin
+      url: github.com/whkelvin
 tags:
-  - name: stamp
-    description: "Stamp API"
+  - name: post
 paths:
   /post:
     post:
+      operationId: CreatePost
       tags:
         - post
       summary: create a new post
@@ -21,7 +24,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#components/schemas/PostPostRequest"
+              $ref: "#/components/schemas/PostPostRequest"
       responses:
         "201":
           description: post created
@@ -36,9 +39,11 @@ paths:
 
   /posts:
     get:
+      operationId: GetRecentPosts
       tags:
         - post
       summary: get a list of most recent posts
+      description: get a list of most recent posts
       parameters:
         - name: size
           in: query
@@ -76,36 +81,36 @@ components:
       type: object
       required:
         - title
-        - subtitle
         - description
         - link
       properties:
         title:
           type: string
-        subtitle:
-          type: string
         description:
           type: string
         link:
-          typs: string
+          type: string
     Post:
       type: object
       required:
         - id
         - title
-        - subtitle
         - description
         - link
+        - postedDate
+        - rootDomain
       properties:
         id:
           type: integer
         title:
           type: string
-        subtitle:
-          type: string
         description:
           type: string
         link:
+          type: string
+        postedDate:
+          type: string
+        rootDomain:
           type: string
     PostResultSet:
       type: object
@@ -115,6 +120,7 @@ components:
         - page
         - pageSize
         - totalPages
+        - postedDate
       properties:
         count:
           type: integer
