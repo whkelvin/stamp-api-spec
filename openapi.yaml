@@ -68,6 +68,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostResultSet"
+        "400":
+          description: Invalid Input
       security:
         - api_key: []
 
@@ -83,12 +85,15 @@ components:
         - title
         - description
         - link
+        - rootDomain
       properties:
         title:
           type: string
         description:
           type: string
         link:
+          type: string
+        rootDomain:
           type: string
     Post:
       type: object
@@ -101,7 +106,7 @@ components:
         - rootDomain
       properties:
         id:
-          type: integer
+          type: string
         title:
           type: string
         description:
