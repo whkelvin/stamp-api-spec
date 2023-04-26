@@ -5,9 +5,8 @@ info:
   description: Stamp API
   version: 1.0.0
   title: Stamp API
-  contact: 
-      name: whkelvin
-      url: github.com/whkelvin
+  contact:
+    name: whkelvin
 tags:
   - name: post
 paths:
@@ -70,8 +69,6 @@ paths:
                 $ref: "#/components/schemas/PostResultSet"
         "400":
           description: Invalid Input
-      security:
-        - api_key: []
 
 externalDocs:
   description: Find out more about Open API specification
@@ -124,8 +121,7 @@ components:
         - posts
         - page
         - pageSize
-        - totalPages
-        - postedDate
+        - createdDate
       properties:
         count:
           type: integer
@@ -144,9 +140,8 @@ components:
         pageSize:
           type: integer
           format: int32
-        totalPages:
-          type: integer
-          format: int32
+        createdDate:
+          type: string
 
   securitySchemes:
     api_key:
