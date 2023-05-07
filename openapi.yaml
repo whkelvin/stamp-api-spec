@@ -35,7 +35,7 @@ paths:
         "400":
           description: Invalid Input
       security:
-        - api_key: []
+        - jwt: []
 
   /posts:
     get:
@@ -68,6 +68,8 @@ paths:
                 $ref: "#/components/schemas/PostResultSet"
         "400":
           description: Invalid Input
+      security: []
+
   /login:
     post:
       operationId: LogIn
@@ -91,6 +93,7 @@ paths:
                 $ref: "#/components/schemas/LogInResponse"
         "400":
           description: Invalid Input
+      security: []
 
 externalDocs:
   description: Find out more about Open API specification
@@ -176,7 +179,7 @@ components:
           type: string
 
   securitySchemes:
-    api_key:
-      type: apiKey
-      name: x-api-key
-      in: header
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
