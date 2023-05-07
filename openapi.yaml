@@ -9,6 +9,7 @@ info:
     name: whkelvin
 tags:
   - name: post
+  - name: auth
 paths:
   /post:
     post:
@@ -65,6 +66,29 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostResultSet"
+        "400":
+          description: Invalid Input
+  /login:
+    post:
+      operationId: LogIn
+      tags:
+        - auth
+      summary: log in or sign up to stamp with an external auth provider
+      description: log in or sign up to stamp with an external auth provider, returns a jwt for accessing stamp api.
+      requestBody:
+        description: request body for signing up and logging in. Specify one of the currently supported authProviders ['github'] and accessToken for the auth provider
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LogInRequest"
+      responses:
+        "200":
+          description: login sucessful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LogInResponse"
         "400":
           description: Invalid Input
 
@@ -133,6 +157,23 @@ components:
         pageSize:
           type: integer
           format: int32
+    LogInRequest:
+      type: object
+      required:
+        - authProvider
+        - accessToken
+      properties:
+        authProvider:
+          type: string
+        accessToken:
+          type: string
+    LogInResponse:
+      type: object
+      required:
+        - jwt
+      properties:
+        jwt:
+          type: string
 
   securitySchemes:
     api_key:
